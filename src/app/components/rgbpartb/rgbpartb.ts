@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, map } from 'rxjs';
-import { Color, RgbColor } from '../../services/color';
+import { Color } from '../../services/color';
 
 @Component({
   selector: 'app-rgbpartb',
@@ -10,18 +9,11 @@ import { Color, RgbColor } from '../../services/color';
   templateUrl: './rgbpartb.html',
   styleUrl: './rgbpartb.css'
 })
-export class Rgbpartb implements OnInit {
+export class Rgbpartb {
   @Input() channel!: 'r' | 'g' | 'b';
+  private colorService = inject(Color);
 
-  value$!: Observable<number>;
-
-  constructor(private colorService: Color) {}
-
-  ngOnInit(): void {
-    this.value$ = this.colorService.color$.pipe(
-      map((color: RgbColor) => color[this.channel])
-    );
-  }
+  value = computed(() => this.colorService.color()[this.channel]);
 
   onChange(newValue: string): void {
     const numeric = Number(newValue);

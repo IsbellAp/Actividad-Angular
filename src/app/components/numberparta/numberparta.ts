@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Color } from '../../services/color';
 
 @Component({
@@ -11,29 +10,23 @@ import { Color } from '../../services/color';
   templateUrl: './numberparta.html',
   styleUrl: './numberparta.css'
 })
-export class Numberparta implements OnInit, OnDestroy {
+export class Numberparta {
   form: FormGroup;
-  private subscription!: Subscription;
+  private colorService = inject(Color);
 
-  constructor(private fb: FormBuilder, private colorService: Color) {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       hex: ['4f7905', [Validators.required, Validators.pattern(/^[0-9a-fA-F]{6}$/)]]
+    });
+
+    effect(() => {
+      const hex = this.colorService.hex();
+      this.form.patchValue({ hex }, { emitEvent: false });
     });
   }
 
   get hexControl() {
     return this.form.get('hex')!;
-  }
-
-  ngOnInit(): void {
-    this.subscription = this.colorService.color$.subscribe(color => {
-      const hex = this.colorService.rgbToHex(color);
-      this.form.patchValue({ hex }, { emitEvent: false });
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   onShow(): void {

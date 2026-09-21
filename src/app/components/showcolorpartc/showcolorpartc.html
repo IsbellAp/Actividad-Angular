@@ -1,11 +1,11 @@
 <div class="card">
   <div class="swatch-block">
     <p class="swatch-label">Color deseado:</p>
-    <div class="swatch" [style.background-color]="colorCss$ | async"></div>
+    <div class="swatch" [style.background-color]="colorCss()"></div>
   </div>
 
   <div class="swatch-block">
     <p class="swatch-label">Escala de grises deseada:</p>
-    <div class="swatch gray" [style.background-color]="grayCss$ | async"></div>
+    <div class="swatch gray" [style.background-color]="grayCss()"></div>
   </div>
 </div>

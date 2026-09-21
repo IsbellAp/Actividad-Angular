@@ -5,7 +5,7 @@
     type="number"
     min="0"
     max="255"
-    [value]="value$ | async"
+    [value]="value()"
     (change)="onChange(numInput.value)"
   />
 </div>
