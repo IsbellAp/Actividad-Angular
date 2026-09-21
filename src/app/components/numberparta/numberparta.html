@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="onShow()">
+  <input type="text" formControlName="hex" placeholder="Ej: 4f7905" maxlength="6" />
+  <button type="submit">Show</button>
+</form>
+
+<p class="error" *ngIf="hexControl.invalid && hexControl.touched">
+  <span *ngIf="hexControl.hasError('required')">Este campo es obligatorio.</span>
+  <span *ngIf="hexControl.hasError('pattern')">
+    Debes ingresar exactamente 6 dígitos hexadecimales (2 por cada canal: R, G, B). Ejemplo: 4f7905
+  </span>
+</p>

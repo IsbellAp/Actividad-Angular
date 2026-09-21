@@ -1,0 +1,11 @@
+<div class="channel-box" [ngClass]="channel">
+  <span class="label">{{ channel | uppercase }}</span>
+  <input
+    #numInput
+    type="number"
+    min="0"
+    max="255"
+    [value]="value$ | async"
+    (change)="onChange(numInput.value)"
+  />
+</div>
