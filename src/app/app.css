@@ -1,3 +1,16 @@
+h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #777;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
 .app-container {
   max-width: 700px;
   margin: 40px auto;
